@@ -48,37 +48,37 @@ Before you can run the script, you need to configure your Google AI Studio API k
 
 ## Usage
 
-To run the stock analyzer, execute the following command in your terminal:
+To run the stock analyzer with the graphical user interface, execute the following command in your terminal:
 
 ```bash
-python stock_analyzer.py
+python stock_ui.py
 ```
 
-The script will then prompt you to enter a stock ticker symbol (e.g., `GOOGL`, `MSFT`, `AAPL`). After you enter a symbol, it will fetch the data, perform the analysis, and print the results to the console.
+This will open a window where you can enter a stock ticker and see the analysis results.
 
 ## How to Test
 
-To test if the script is working correctly, follow these steps:
+To test if the application is working correctly, follow these steps:
 
 1.  **Complete the Configuration:** Ensure you have installed the dependencies and added your API key as described in the sections above.
 
-2.  **Run the script:**
+2.  **Run the application:**
     ```bash
-    python stock_analyzer.py
+    python stock_ui.py
     ```
 
 3.  **Enter a Ticker Symbol:**
-    When prompted, enter a well-known stock ticker, for example:
-    ```
-    Enter the stock ticker symbol (e.g., GOOGL, MSFT): MSFT
-    ```
+    In the input field, enter a well-known stock ticker, for example: `MSFT`.
 
-4.  **Check the Output:**
-    - The script should first print that it is fetching data for the ticker.
-    - Then, it should indicate that it is analyzing the data with Gemini.
-    - Finally, it will display the **"Gemini Stock Analysis"**, which should include a summary, trend analysis, key observations, an investment recommendation, and a risk assessment.
+4.  **Click "Analyze":**
+    Press the "Analyze" button to start the process.
 
-    If you see this output without any errors, the script is working as expected.
+5.  **Check the Output:**
+    - The text box will first show that it is fetching data.
+    - Next, it will indicate that it is analyzing the data with Gemini.
+    - Finally, the analysis results will be displayed in the text box.
+
+    If you see this output without any errors, the application is working as expected.
 
 ### Common Errors
 

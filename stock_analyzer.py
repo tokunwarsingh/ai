@@ -29,26 +29,72 @@ def analyze_stock_with_gemini(stock_data, ticker_symbol):
 
     try:
         genai.configure(api_key=API_KEY)
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-2.5-flash')
 
         prompt = f"""
-        **Analyze the following stock data for {ticker_symbol} and provide a detailed investment analysis.**
+        Act as an expert financial analyst. Conduct a comprehensive, multi-faceted analysis of the stock for {ticker_symbol}.
 
-        **Stock Data (last 3 months):**
-        {stock_data}
+        The analysis must include:
 
-        **Please provide the following:**
+        Executive Summary: A concise summary of the key findings, potential risks, and a clear recommendation (Buy/Hold/Sell) with a defined entry point.
 
-        1.  **Summary:** A brief overview of the stock's recent performance.
-        2.  **Trend Analysis:** Identify and explain the primary trends (e.g., uptrend, downtrend, sideways movement).
-        3.  **Key Observations:** Point out any significant price movements, volume changes, or patterns.
-        4.  **Investment Recommendation:** Based on the data, provide a recommendation (e.g., Buy, Hold, Sell) with a clear justification.
-            - **For a "Buy" recommendation:** Explain the positive indicators.
-            - **For a "Sell" recommendation:** Explain the negative indicators.
-            - **For a "Hold" recommendation:** Explain the reasons for uncertainty or stability.
-        5.  **Risk Assessment:** Briefly mention potential risks associated with this stock.
+        Fundamental Analysis:
 
-        **Disclaimer:** This analysis is for informational purposes only and does not constitute financial advice.
+        Company Profile: A brief overview of the company, its business model, and its position within its industry.
+
+        Quarterly Results: A detailed breakdown and analysis of the last four quarterly results. Focus on key metrics such as revenue, net income, EPS (Earnings Per Share), and profit margins.
+
+        Financial Health: An evaluation of the company's balance sheet, including debt-to-equity ratio, current ratio, and cash flow from operations.
+
+        Competitive Landscape: An analysis of the company's key competitors and its competitive advantages or disadvantages.
+
+        Valuation: An assessment of the stock's current valuation using metrics like P/E ratio, P/B ratio, and a comparison to industry averages.
+
+        Technical Analysis:
+
+        Price Action: A description of recent price trends, including support and resistance levels.
+
+        Indicators: An analysis using key technical indicators such as:
+
+        Moving Averages (50-day, 200-day)
+
+        Relative Strength Index (RSI)
+
+        MACD (Moving Average Convergence Divergence)
+
+        Volume Analysis: An interpretation of recent trading volume, noting any significant spikes and what they might indicate.
+
+        Order Book and Market Depth: A discussion of the current order book, including bid/ask spreads and market depth, to assess liquidity and potential price pressure.
+
+        Forward-Looking Projections & Expected Returns:
+
+        Entry Point: Based on the combined analysis, specify a recommended entry point or price range for the stock.
+
+        Expected Returns: Provide a projected expected return for the following time horizons:
+
+        3-year expected return
+
+        6-year expected return
+
+        9-year expected return
+
+        12-year expected return
+
+        Risks and Catalysts: Identify the primary risks that could negatively impact the stock's performance and the potential catalysts that could drive future growth.
+
+        Data Visualization & Presentation:
+
+        Graph: Create a graph showing the stock's price history over the past 5 years, along with the 50-day and 200-day moving averages.
+
+        Tabular Data: Present the following information in a clean and presentable table:
+
+        Quarterly Financials: A table with the last four quarters' revenue, net income, and EPS.
+
+        Key Ratios: A table showing the current P/E, P/B, Debt/Equity ratios, and their respective industry averages.
+
+        Return Projections: A table outlining the projected returns for the 3, 6, 9, and 12-year periods.
+
+        Ensure the final output is well-structured, easy to read, and provides actionable insights. The analysis should be based on the most up-to-date and publicly available information.
         """
 
         response = model.generate_content(prompt)
@@ -57,26 +103,3 @@ def analyze_stock_with_gemini(stock_data, ticker_symbol):
         if "API key not valid" in str(e):
             return "Error: The provided Google AI API key is invalid. Please check your API key and try again."
         return f"An error occurred during Gemini API call: {e}"
-
-def main():
-    """Main function to run the stock analysis."""
-    print("--- Stock Analysis with Gemini AI ---")
-
-    if API_KEY == "YOUR_API_KEY":
-        print("\nERROR: Please replace 'YOUR_API_KEY' in the script with your actual Google AI Studio API key.")
-        return
-
-    ticker_symbol = input("Enter the stock ticker symbol (e.g., GOOGL, MSFT): ").upper()
-
-    print(f"\nFetching data for {ticker_symbol}...")
-    stock_data = get_stock_data(ticker_symbol)
-
-    if stock_data:
-        print("Analyzing stock data with Gemini...")
-        analysis = analyze_stock_with_gemini(stock_data, ticker_symbol)
-        print("\n--- Gemini Stock Analysis ---")
-        print(analysis)
-        print("---------------------------\n")
-
-if __name__ == "__main__":
-    main()
