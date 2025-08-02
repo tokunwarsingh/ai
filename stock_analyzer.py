@@ -22,6 +22,25 @@ def get_stock_data(ticker_symbol):
         print(f"An error occurred while fetching stock data: {e}")
         return None
 
+def get_ticker_from_name(company_name):
+    """Gets the stock ticker from a company name using the Gemini API."""
+    try:
+        genai.configure(api_key=API_KEY)
+        model = genai.GenerativeModel('gemini-2.5-flash')
+        prompt = f"What is the stock ticker for '{company_name}'? Prioritize stocks listed on India's NSE or BSE. Please return only the ticker symbol."
+        response = model.generate_content(prompt)
+        return response.text.strip()
+    except Exception as e:
+        return f"Could not find ticker for {company_name}: {e}"
+
+def is_valid_ticker(ticker_symbol):
+    """Checks if a ticker symbol is valid."""
+    try:
+        stock = yf.Ticker(ticker_symbol)
+        return not stock.history(period="1d").empty
+    except Exception:
+        return False
+
 def analyze_stock_with_gemini(stock_data, ticker_symbol):
     """Analyzes stock data using the Gemini API."""
     if not stock_data:

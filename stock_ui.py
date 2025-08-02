@@ -1,6 +1,6 @@
 import customtkinter as ctk
 import re
-from stock_analyzer import get_stock_data, analyze_stock_with_gemini, API_KEY
+from stock_analyzer import get_stock_data, analyze_stock_with_gemini, API_KEY, is_valid_ticker, get_ticker_from_name
 
 class StockApp(ctk.CTk):
     def __init__(self):
@@ -44,10 +44,21 @@ class StockApp(ctk.CTk):
             self.analyze_button.configure(state="disabled")
 
     def analyze_stock(self):
-        ticker = self.ticker_entry.get().upper()
-        if not ticker:
-            self.show_error("Please enter a stock ticker.")
+        user_input = self.ticker_entry.get()
+        if not user_input:
+            self.show_error("Please enter a stock ticker or company name.")
             return
+
+        # Check if the input is a valid ticker
+        if is_valid_ticker(user_input):
+            ticker = user_input.upper()
+        else:
+            # If not a valid ticker, assume it's a company name
+            self.show_info(f"Finding ticker for '{user_input}'...")
+            ticker = get_ticker_from_name(user_input)
+            if "Could not find ticker" in ticker:
+                self.show_error(ticker)
+                return
 
         self.show_info(f"Fetching data for {ticker}...")
         stock_data = get_stock_data(ticker)

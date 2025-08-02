@@ -4,7 +4,7 @@ This project uses the Google Gemini Pro API and Yahoo Finance to provide a detai
 
 ## About the Project
 
-This script fetches the last three months of historical data for a specified stock ticker using the `yfinance` library. It then uses the Google Gemini Pro model to analyze this data and generate an investment recommendation, trend analysis, and risk assessment.
+This script fetches the last three months of historical data for a specified stock ticker or company name using the `yfinance` library. It then uses the Google Gemini Pro model to analyze this data and generate an investment recommendation, trend analysis, and risk assessment. The application is configured to prioritize stocks listed on Indian exchanges (NSE or BSE) when a company name is provided.
 
 ## Getting Started
 
@@ -54,7 +54,7 @@ To run the stock analyzer with the graphical user interface, execute the followi
 python stock_ui.py
 ```
 
-This will open a window where you can enter a stock ticker and see the analysis results.
+This will open a window where you can enter a stock ticker or a company name to see the analysis results.
 
 ## How to Test
 
@@ -67,8 +67,8 @@ To test if the application is working correctly, follow these steps:
     python stock_ui.py
     ```
 
-3.  **Enter a Ticker Symbol:**
-    In the input field, enter a well-known stock ticker, for example: `MSFT`.
+3.  **Enter a Ticker or Company Name:**
+    In the input field, enter a well-known stock ticker (e.g., `MSFT`) or a company name (e.g., `Wipro`).
 
 4.  **Click "Analyze":**
     Press the "Analyze" button to start the process.
