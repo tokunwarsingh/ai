@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Text } from 'react-native'; // Import Text component
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { createContext, ReactNode, useContext, useState } from 'react';
 
 // Define user types
 interface User {
@@ -30,28 +29,6 @@ const USER_STORAGE_KEY = 'currentUser';
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true); // To manage loading state for initial load
-
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        // For development, clear storage to always show login initially
-        if (__DEV__) {
-          await AsyncStorage.removeItem(USER_STORAGE_KEY);
-        }
-
-        const storedUser = await AsyncStorage.getItem(USER_STORAGE_KEY);
-        if (storedUser) {
-          setUser(JSON.parse(storedUser));
-        }
-      } catch (error) {
-        console.error('Failed to load user from AsyncStorage', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadUser();
-  }, []);
 
   const login = async (username: string, role: 'admin' | 'user') => {
     const newUser: User = {
@@ -79,9 +56,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const isAuthenticated = !!user;
   const isAdmin = user?.role === 'admin';
 
-  if (loading) {
-    return <Text>Loading authentication...</Text>; // Or a loading spinner
-  }
 
   return (
     <AuthContext.Provider value={{ user, login, logout, isAuthenticated, isAdmin }}>

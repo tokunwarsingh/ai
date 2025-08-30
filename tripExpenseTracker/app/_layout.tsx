@@ -1,18 +1,14 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import React, { useEffect } from 'react';
+import { Button } from 'react-native';
 import 'react-native-reanimated';
-import React, { useEffect } from 'react'; // Re-add React and useEffect
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Re-add AsyncStorage
-import { Button } from 'react-native'; // Re-add Button
 
-import { useColorScheme } from '@/hooks/useColorScheme'; // Assuming this hook is correctly set up
-import { AuthProvider, useAuth } from '../context/AuthContext'; // Import AuthProvider and useAuth
-import { TripProvider } from '../context/TripContext'; // Import TripProvider
-import { ExpenseProvider } from '../context/ExpenseContext'; // Import ExpenseProvider
-import { Colors } from '../constants/Colors'; // Import Colors for theming
-// HomeScreen and AuthScreen are now handled by file-based routing, no need to import them here for Stack.Screen component prop
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { AuthProvider, useAuth } from '../context/AuthContext';
+import { ExpenseProvider } from '../context/ExpenseContext';
+import { TripProvider } from '../context/TripContext';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -32,23 +28,27 @@ export default function RootLayout() {
 }
 
 function RootLayoutContent() {
-  const { isAuthenticated, user, logout } = useAuth(); // Also get user and logout for debugging
+  const { isAuthenticated, user, logout } = useAuth();
 
-  // Debugging useEffect
   useEffect(() => {
-    console.log('Auth Status - isAuthenticated:', isAuthenticated);
-    console.log('Auth Status - User:', user);
+    console.log('Auth Status - isAuthenticated (useEffect):', isAuthenticated);
+    console.log('Auth Status - User (useEffect):', user);
     if (isAuthenticated) {
-      console.log('Auth Status: Rendering (app) group.');
+      console.log('Auth Status (useEffect): Rendering (app) group.');
     } else {
-      console.log('Auth Status: Rendering (auth) group.');
+      console.log('Auth Status (useEffect): Rendering (auth) group.');
     }
   }, [isAuthenticated, user]);
+
+  console.log('Auth Status - isAuthenticated (render):', isAuthenticated);
+  console.log('Auth Status - User (render):', user);
 
   const handleClearStorage = async () => {
     try {
       await AsyncStorage.clear();
-      logout(); // Log out after clearing storage
+      logout();
+      console.log('Auth Status - isAuthenticated (after logout):', isAuthenticated);
+      console.log('Auth Status - User (after logout):', user);
       alert('AsyncStorage cleared and logged out!');
     } catch (error) {
       console.error('Failed to clear AsyncStorage', error);

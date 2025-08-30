@@ -1,9 +1,8 @@
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router'; // For navigation and route params
 import React from 'react';
-import { View, Text, Button, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Expense, useExpenses } from '../../../context/ExpenseContext'; // Assuming ExpenseContext is in /context and import Expense type
 import { useTrips } from '../../../context/TripContext'; // Adjust path as needed
-import { useExpenses, Expense } from '../../../context/ExpenseContext'; // Assuming ExpenseContext is in /context and import Expense type
-import { Stack, useRouter, useLocalSearchParams } from 'expo-router'; // For navigation and route params
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'; // For navigation prop typing
 import { exportExpensesToExcel } from '../../../utils/ExcelExport'; // Import the export function
 
 // Define the type for navigation params for this screen
@@ -107,10 +106,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     elevation: 2, // for Android shadow
-    shadowColor: '#000', // for iOS shadow
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    boxShadow: '0px 1px 1.41px rgba(0, 0, 0, 0.2)',
   },
   expenseDescription: {
     fontSize: 16,

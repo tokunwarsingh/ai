@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, Button, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { useTrips, Trip } from '../context/TripContext';
 import { Stack, useRouter } from 'expo-router';
-import { GlobalStyles } from '../constants/Styles'; // Import GlobalStyles
+import React from 'react';
+import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../constants/Colors'; // Import Colors
+import { GlobalStyles } from '../constants/Styles'; // Import GlobalStyles
+import { Trip, useTrips } from '../context/TripContext';
 
 const TripsListScreen = () => {
   const { trips, deleteTrip } = useTrips();
@@ -61,10 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     elevation: 2, // for Android shadow
- shadowColor: Colors.light.light, // for iOS shadow
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    boxShadow: `0px 1px 1.41px ${Colors.light.light}80`, // Added 80 for 0.2 opacity
   },
   tripName: {
     fontSize: 18,

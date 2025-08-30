@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Platform, Switch } from 'react-native';
-import { useAuth } from '../context/AuthContext'; // Assuming AuthContext is in /context
 import { Stack } from 'expo-router'; // For navigation if needed within the screen
-import { GlobalStyles } from '../constants/Styles'; // Import GlobalStyles
-import { Colors } from '../constants/Colors'; // Import Colors
+import React, { useState } from 'react';
+import { Button, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
+import { Colors } from '../../constants/Colors'; // Import Colors
+import { GlobalStyles } from '../../constants/Styles'; // Import GlobalStyles
+import { useAuth } from '../../context/AuthContext'; // Assuming AuthContext is in /context
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');

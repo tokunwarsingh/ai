@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, Button, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { useTrips, Trip } from '../context/TripContext'; // Assuming TripContext is in /context
-import { Stack, useRouter } from 'expo-router'; // For navigation
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'; // For navigation prop typing
+import { Stack, useRouter } from 'expo-router'; // For navigation
+import React from 'react';
+import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Trip, useTrips } from '../context/TripContext'; // Assuming TripContext is in /context
 
 // Define the type for navigation params
 type TripsListNavigationProp = NativeStackNavigationProp<
@@ -78,10 +78,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     elevation: 2, // for Android shadow
-    shadowColor: '#000', // for iOS shadow
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    boxShadow: '0px 1px 1.41px rgba(0, 0, 0, 0.2)',
   },
   tripName: {
     fontSize: 18,

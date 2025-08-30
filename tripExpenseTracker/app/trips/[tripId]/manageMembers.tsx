@@ -1,8 +1,8 @@
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { View, Text, Button, FlatList, StyleSheet, TextInput, Alert } from 'react-native';
-import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
-import { useTrips, Trip } from '../../../context/TripContext'; // Adjust path as needed
+import { Alert, Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useAuth } from '../../../context/AuthContext'; // Adjust path as needed
+import { useTrips } from '../../../context/TripContext'; // Adjust path as needed
 
 // Define route params type
 type ManageMembersRouteParams = {
@@ -124,10 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    boxShadow: '0px 1px 1.41px rgba(0, 0, 0, 0.2)',
   },
   memberName: {
     fontSize: 16,
