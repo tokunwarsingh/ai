@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { Button } from 'react-native';
 import 'react-native-reanimated';
@@ -29,12 +29,13 @@ export default function RootLayout() {
 
 function RootLayoutContent() {
   const { isAuthenticated, user, logout } = useAuth();
-
+    const router = useRouter();
   useEffect(() => {
     console.log('Auth Status - isAuthenticated (useEffect):', isAuthenticated);
     console.log('Auth Status - User (useEffect):', user);
     if (isAuthenticated) {
       console.log('Auth Status (useEffect): Rendering (app) group.');
+       router.replace('/home');
     } else {
       console.log('Auth Status (useEffect): Rendering (auth) group.');
     }

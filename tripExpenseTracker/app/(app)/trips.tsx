@@ -1,9 +1,9 @@
 import { Stack, useRouter } from 'expo-router';
 import React from 'react';
 import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Colors } from '../constants/Colors'; // Import Colors
-import { GlobalStyles } from '../constants/Styles'; // Import GlobalStyles
-import { Trip, useTrips } from '../context/TripContext';
+import { Colors } from '../../constants/Colors'; // Import Colors
+import { GlobalStyles } from '../../constants/Styles'; // Import GlobalStyles
+import { Trip, useTrips } from '../../context/TripContext';
 
 const TripsListScreen = () => {
   const { trips, deleteTrip } = useTrips();
@@ -11,14 +11,14 @@ const TripsListScreen = () => {
 
   const renderTripItem = ({ item }: { item: Trip }) => (
     <View style={styles.tripItemContainer}>
-      <TouchableOpacity onPress={() => router.push(`/trips/${item.id}`)}>
+      <TouchableOpacity onPress={() => router.push(`/(app)/trips/${item.id}` as any)}>
         <Text style={styles.tripName}>{item.name}</Text>
         {item.startDate && (
           <Text style={{ color: Colors.light.text }}>{item.startDate.toLocaleDateString()}</Text>
         )}
       </TouchableOpacity>
       <View style={styles.actionsContainer}>
-        <Button title="Edit" onPress={() => router.push(`/trips/${item.id}/edit`)} color={Colors.light.secondary} />
+        <Button title="Edit" onPress={() => router.push(`/(app)/trips/${item.id}/edit` as any)} color={Colors.light.secondary} />
         <Button title="Delete" onPress={() => deleteTrip(item.id)} color={Colors.light.danger} />
       </View>
     </View>
@@ -27,13 +27,13 @@ const TripsListScreen = () => {
   return (
     <View style={GlobalStyles.container}>
       <Stack.Screen options={{ title: 'My Trips', headerRight: () => (
-        <Button onPress={() => router.push('/trips/create')} title="Add Trip" color={Colors.light.primary} />
+        <Button onPress={() => router.push('/(app)/trips/create' as any)} title="Add Trip" color={Colors.light.primary} />
       )}} />
       
       {trips.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyText}>No trips yet. Add your first trip!</Text>
-          <Button title="Add Trip" onPress={() => router.push('/trips/create')} color={Colors.light.primary} />
+          <Button title="Add Trip" onPress={() => router.push('/(app)/trips/create' as any)} color={Colors.light.primary} />
         </View>
       ) : (
         <FlatList

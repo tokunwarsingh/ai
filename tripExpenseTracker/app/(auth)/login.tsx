@@ -1,6 +1,6 @@
-import { Stack } from 'expo-router'; // For navigation if needed within the screen
+import { Link, Stack } from 'expo-router'; // For navigation if needed within the screen
 import React, { useState } from 'react';
-import { Button, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
+import { Button, Pressable, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 import { Colors } from '../../constants/Colors'; // Import Colors
 import { GlobalStyles } from '../../constants/Styles'; // Import GlobalStyles
 import { useAuth } from '../../context/AuthContext'; // Assuming AuthContext is in /context
@@ -54,8 +54,15 @@ const LoginScreen = () => {
 
       <Button title="Login" onPress={handleLogin} testID="login-button" color={Colors.light.primary} />
       
-      {/* Placeholder for registration link */}
-      <Text style={GlobalStyles.textButton}>Don't have an account? Register here.</Text>
+      {/* Registration link */}
+      <View style={styles.registerContainer}>
+        <Text style={{ color: Colors.light.text }}>Don't have an account? </Text>
+        <Link href="/(auth)/register" asChild>
+          <Pressable>
+            <Text style={GlobalStyles.textButton}>Register here.</Text>
+          </Pressable>
+        </Link>
+      </View>
     </View>
   );
 };
@@ -70,7 +77,10 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 20,
   },
-  // Reusing GlobalStyles.textButton for registerLink
+  registerContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+  },
 });
 
 export default LoginScreen;

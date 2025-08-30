@@ -1,20 +1,20 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router'; // Import useRouter for navigation
-import { useAuth } from '../context/AuthContext'; // Import useAuth to check user role
-import { GlobalStyles } from '../constants/Styles'; // Import GlobalStyles
-import { Colors } from '../constants/Colors'; // Import Colors
+import React from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import { Colors } from '../../constants/Colors'; // Import Colors
+import { GlobalStyles } from '../../constants/Styles'; // Import GlobalStyles
+import { useAuth } from '../../context/AuthContext'; // Import useAuth to check user role
 
 const HomeScreen = () => {
   const router = useRouter();
   const { user, logout } = useAuth(); // Get user and logout function
 
   const handleViewTrips = () => {
-    router.push('/trips'); // Navigate to the trips list screen
+    router.push('/(app)/trips'); // Navigate to the trips list screen
   };
 
   const handleAdminPanel = () => {
-    router.push('/admin'); // Navigate to the admin panel
+    router.push('/(app)/admin' as any); // Navigate to the admin panel
   };
 
   return (

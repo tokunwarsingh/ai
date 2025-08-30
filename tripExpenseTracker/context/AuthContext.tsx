@@ -12,6 +12,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   login: (username: string, role: 'admin' | 'user') => void;
+  register: (username: string, password: string, role: 'admin' | 'user') => void; // Add register function
   logout: () => void;
   isAuthenticated: boolean;
   isAdmin: boolean;
@@ -44,6 +45,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const register = async (username: string, password: string, role: 'admin' | 'user') => {
+    // In a real application, you would hash the password and store it securely.
+    // For this mock, we'll just create a new user and log them in.
+    const newUser: User = {
+      id: Math.random().toString(), // Mock ID
+      username,
+      role,
+    };
+    setUser(newUser);
+    try {
+      await AsyncStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));
+    } catch (error) {
+      console.error('Failed to save user to AsyncStorage', error);
+    }
+  };
+
   const logout = async () => {
     setUser(null);
     try {
@@ -58,7 +75,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated, isAdmin }}>
+    <AuthContext.Provider value={{ user, login, register, logout, isAuthenticated, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );
