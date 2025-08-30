@@ -33,12 +33,15 @@ function RootLayoutContent() {
   useEffect(() => {
     console.log('Auth Status - isAuthenticated (useEffect):', isAuthenticated);
     console.log('Auth Status - User (useEffect):', user);
-    if (isAuthenticated) {
-      console.log('Auth Status (useEffect): Rendering (app) group.');
-       router.replace('/home');
-    } else {
-      console.log('Auth Status (useEffect): Rendering (auth) group.');
-    }
+     if (isAuthenticated) {
+      if (user?.role === 'admin') {
+        router.replace('/admin');
+      } else {
+        router.replace('/home');
+      }
+    // } else {
+    //   router.replace('/(auth)/login');
+     }
   }, [isAuthenticated, user]);
 
   console.log('Auth Status - isAuthenticated (render):', isAuthenticated);
